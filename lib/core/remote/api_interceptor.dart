@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-
 /// A class that holds intercepting logic for API related requests. This is
 /// the first interceptor in case of both request and response.
 ///
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 /// Since this interceptor isn't responsible for error handling, if an exception
 /// occurs it is passed on the next [Interceptor] or to [Dio].
 class ApiInterceptor extends Interceptor {
-
   ApiInterceptor() : super();
 
   /// This method intercepts an out-going request before it reaches the
@@ -30,10 +28,9 @@ class ApiInterceptor extends Interceptor {
   /// with your custom [DioException].
   @override
   Future<void> onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
-
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     ///Not used since this project don't store any user token
     ///
     // final userToken = await Get.find<SecureStorage>().getUserToken();
@@ -41,11 +38,16 @@ class ApiInterceptor extends Interceptor {
     //   <String, Object?>{'Authorization': 'Bearer $userToken'},
     // );
 
+    ///add default query parameter [appid] for every request
+
+    assert(const String.fromEnvironment("MAP_API_KEY", defaultValue: "") != "",
+        "MAP_API_KEY not defined");
+    options.queryParameters['appid'] =
+        const String.fromEnvironment("MAP_API_KEY");
+
     if (options.extra.containsKey('requiresAuthToken')) {
       options.extra.remove('requiresAuthToken');
     }
     return handler.next(options);
   }
-
-
 }
