@@ -1,9 +1,17 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:weather_app_master/core/remote/api_env.dart';
+import 'package:weather_app_master/core/remote/api_interceptor.dart';
+import 'package:weather_app_master/core/remote/dio_service.dart';
 import 'package:weather_app_master/presentation/main/view/page/main_page.dart';
 import 'package:weather_app_master/routes/routes.dart';
 
@@ -11,6 +19,25 @@ import 'constant/constant.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  ///this line will not effect to anything since we have multiple base url
+  setEnvironment(Environment.dev);
+
+  final dir = await getApplicationDocumentsDirectory();
+
+  dioService = DioService(
+    dioClient: dio,
+    interceptors: [
+      ApiInterceptor(),
+      if (kDebugMode) PrettyDioLogger(requestBody: true, requestHeader: true),
+      DioCacheInterceptor(
+        options: CacheOptions(
+          store: HiveCacheStore(dir.path),
+          keyBuilder: (options) => options.path,
+        ),
+      ),
+    ],
+  );
 
   runApp(const MyApp());
 }
