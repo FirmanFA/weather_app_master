@@ -22,6 +22,15 @@ class LocationUtil {
     return position;
   }
 
+  static Future<Location?> getLocationFromCityName(
+      {required String cityName}) async {
+    final locationList = await locationFromAddress(cityName);
+
+    if (locationList.isNotEmpty) return locationList.first;
+
+    return null;
+  }
+
   static Future<String> getCurrentCityFromLongLat(
       {required double long, required double lat}) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
