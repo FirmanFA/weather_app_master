@@ -59,4 +59,10 @@ extension PositionUtil on Position {
 
     return "";
   }
+
+  Location get toLocation {
+    return Location(
+        latitude: latitude, longitude: longitude, timestamp: timestamp);
+
+  }
 }
