@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:weather_app_master/constant/constant.dart';
 
 class BasicShimmerContainer extends StatelessWidget {
   final Widget child;
@@ -9,8 +10,8 @@ class BasicShimmerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.white,
+        baseColor: Color(0xFF4A3C7A),
+        highlightColor: Colors.grey.shade600,
         child: child);
   }
 }
