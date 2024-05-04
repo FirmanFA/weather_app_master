@@ -409,7 +409,7 @@ class MainPage extends StatelessWidget {
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Text(item.name ?? ""),
+                                            child: Text(item.name?.replaceAll("KABUPATEN", "") ?? ""),
                                           ),
                                         );
                                       },
