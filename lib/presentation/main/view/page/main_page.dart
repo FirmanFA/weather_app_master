@@ -29,6 +29,8 @@ class MainPage extends StatelessWidget {
                   child: LoaderStateContainer(
                 state: controller.currentWeatherState.value,
                 success: (data) {
+                  final weatherData = data.value;
+
                   return Column(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -64,7 +66,7 @@ class MainPage extends StatelessWidget {
                                 child: FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: Text(
-                                    "54\u00B0",
+                                    "${weatherData.main?.temp?.toStringAsFixed(0) ?? "-"}\u00B0",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w900,
                                         fontSize: 200.sp),
