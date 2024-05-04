@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:weather_app_master/core/remote/api_result.dart';
+import 'package:weather_app_master/core/repository/city_repository.dart';
 import 'package:weather_app_master/core/repository/weather_repository.dart';
+import 'package:weather_app_master/presentation/main/model/city/get_city_response.dart';
 import 'package:weather_app_master/presentation/main/model/forecast/get_forecast_response.dart';
 import 'package:weather_app_master/presentation/main/model/weather/get_weather_response.dart';
 import 'package:weather_app_master/utils/location_util.dart';
@@ -11,11 +13,16 @@ class MainController extends GetxController {
   var selectedCityString = "".obs;
   Rxn<Location> selectedLocation = Rxn();
 
+  final cityNameController = TextEditingController();
+
   final _weatherRepository = WeatherRepository();
+  final _cityRepository = CityRepository();
 
   Rx<UIState<GetWeatherResponse>> currentWeatherState = Rx(UiLoading());
 
   Rx<UIState<GetForecastResponse>> weatherForecastState = Rx(UiLoading());
+
+  Rx<UIState<GetCityResponse>> cityListState = Rx(UiLoading());
 
   var isCityInputShown = false.obs;
 
@@ -71,6 +78,22 @@ class MainController extends GetxController {
     });
   }
 
+  getCityListByKeyword() {
+    cityListState.value = UiLoading();
+    update();
+    _cityRepository.getCityList(queryParams: {
+      'name': cityNameController.text.trim(),
+      'limit': 10
+    }).then((value) {
+      cityListState.value = UiSuccess(value);
+      update();
+    }).catchError((er) {
+      Get.snackbar("Gagal", er.message);
+      cityListState.value = UiFailure(er.message);
+      update();
+    });
+  }
+
   setSelectedCity(String value) {
     selectedCityString.value = value;
     debugPrint("selected city: ${selectedCityString.value}");
@@ -83,9 +106,8 @@ class MainController extends GetxController {
     update();
   }
 
-  setIsCityInputShown(bool value){
+  setIsCityInputShown(bool value) {
     isCityInputShown.value = value;
     update();
   }
-
 }
