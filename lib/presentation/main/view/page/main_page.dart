@@ -72,11 +72,15 @@ class MainPage extends StatelessWidget {
                                 )
                               ],
                             ),
-                            LottieBuilder.asset(
-                              weatherData.weather?.first.icon
-                                      ?.clusterWeatherIconToLocalAsset ??
-                                  "",
+                            SizedBox(
                               width: Get.width,
+                              height: Get.width,
+                              child: LottieBuilder.asset(
+                                weatherData.weather?.first.icon
+                                        ?.clusterWeatherIconToLocalAsset ??
+                                    "",
+                                width: Get.width,
+                              ),
                             ),
                             Padding(
                               padding:
