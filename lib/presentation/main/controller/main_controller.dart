@@ -17,6 +17,8 @@ class MainController extends GetxController {
 
   Rx<UIState<GetForecastResponse>> weatherForecastState = Rx(UiLoading());
 
+  var isCityInputShown = false.obs;
+
   @override
   void onInit() {
     getUserPosition();
@@ -80,4 +82,10 @@ class MainController extends GetxController {
     debugPrint("selected location: ${selectedLocation.value?.toString()}");
     update();
   }
+
+  setIsCityInputShown(bool value){
+    isCityInputShown.value = value;
+    update();
+  }
+
 }
