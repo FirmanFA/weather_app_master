@@ -17,7 +17,7 @@ class CityRepository {
       return _apiService.getDocumentData<GetCityResponse>(
         endpoint: ApiEndpoint.city(CityEndpoint.getCityList),
         queryParams: queryParams,
-        requiresAuthToken: true,
+        requiresAuthToken: false,
         converter: (response) => GetCityResponse.fromJson(response),
       );
     } on CustomException {

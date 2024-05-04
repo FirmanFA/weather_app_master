@@ -38,14 +38,16 @@ class ApiInterceptor extends Interceptor {
     //   <String, Object?>{'Authorization': 'Bearer $userToken'},
     // );
 
-    ///add default query parameter [appid] for every request
-
-    assert(const String.fromEnvironment("MAP_API_KEY", defaultValue: "") != "",
-        "MAP_API_KEY not defined");
-    options.queryParameters['appid'] =
-        const String.fromEnvironment("MAP_API_KEY");
-
     if (options.extra.containsKey('requiresAuthToken')) {
+
+      if(options.extra['requiresAuthToken'] == true){
+        ///add default query parameter [appid] for every request
+        assert(const String.fromEnvironment("MAP_API_KEY", defaultValue: "") != "",
+        "MAP_API_KEY not defined");
+        options.queryParameters['appid'] =
+        const String.fromEnvironment("MAP_API_KEY");
+      }
+
       options.extra.remove('requiresAuthToken');
     }
     return handler.next(options);
