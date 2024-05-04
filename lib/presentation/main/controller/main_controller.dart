@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:weather_app_master/core/remote/api_result.dart';
 import 'package:weather_app_master/core/repository/city_repository.dart';
 import 'package:weather_app_master/core/repository/weather_repository.dart';
@@ -14,6 +15,9 @@ class MainController extends GetxController {
   Rxn<Location> selectedLocation = Rxn();
 
   final cityNameController = TextEditingController();
+
+  final PagingController<int, CityData> pagingController =
+      PagingController(firstPageKey: 1);
 
   final _weatherRepository = WeatherRepository();
   final _cityRepository = CityRepository();
@@ -29,6 +33,10 @@ class MainController extends GetxController {
   @override
   void onInit() {
     getUserPosition();
+
+    pagingController.addPageRequestListener((pageKey) {
+      getCityListByKeyword(pageKey);
+    });
 
     super.onInit();
   }
@@ -78,18 +86,21 @@ class MainController extends GetxController {
     });
   }
 
-  getCityListByKeyword() {
-    cityListState.value = UiLoading();
-    update();
+  getCityListByKeyword(int pageKey) {
     _cityRepository.getCityList(queryParams: {
       'name': cityNameController.text.trim(),
-      'limit': 10
+      'limit': 10,
+      'page': pageKey
     }).then((value) {
-      cityListState.value = UiSuccess(value);
-      update();
+      final isLastPage = value.meta?.pagination?.pages?.next == null;
+
+      if (isLastPage) {
+        pagingController.appendLastPage(value.data ?? []);
+      } else {
+        pagingController.appendPage(value.data ?? [], pageKey + 1);
+      }
     }).catchError((er) {
-      Get.snackbar("Gagal", er.message);
-      cityListState.value = UiFailure(er.message);
+      pagingController.error = er.message;
       update();
     });
   }
@@ -97,11 +108,11 @@ class MainController extends GetxController {
   setLocationFromCityString({required Function() onSuccess}) {
     LocationUtil.getLocationFromCityName(cityName: selectedCityString.value)
         .then((value) {
-          if (value != null){
-            setSelectedLocation(value);
-            onSuccess.call();
-            update();
-          }
+      if (value != null) {
+        setSelectedLocation(value);
+        onSuccess.call();
+        update();
+      }
     });
   }
 

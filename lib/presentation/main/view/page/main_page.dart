@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app_master/constant/constant.dart';
 import 'package:weather_app_master/presentation/main/controller/main_controller.dart';
+import 'package:weather_app_master/presentation/main/model/city/get_city_response.dart';
 import 'package:weather_app_master/reusable/widget/data_loader/loader_state_container.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_card.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_container.dart';
@@ -220,7 +222,8 @@ class MainPage extends StatelessWidget {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   // shrinkWrap: true,
-                                                  padding: const EdgeInsets.all(12),
+                                                  padding:
+                                                      const EdgeInsets.all(12),
                                                   itemBuilder:
                                                       (context, index) {
                                                     final forecastWeatherDetail =
@@ -240,7 +243,8 @@ class MainPage extends StatelessWidget {
                                                                 .circular(12.r),
                                                       ),
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                       child: Column(
                                                         children: [
                                                           LottieBuilder.asset(
@@ -278,7 +282,8 @@ class MainPage extends StatelessWidget {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   // shrinkWrap: true,
-                                                  padding: const EdgeInsets.all(12),
+                                                  padding:
+                                                      const EdgeInsets.all(12),
                                                   itemBuilder:
                                                       (context, index) {
                                                     return Container(
@@ -295,7 +300,8 @@ class MainPage extends StatelessWidget {
                                                                 .circular(12.r),
                                                       ),
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                     );
                                                   },
                                                   separatorBuilder:
@@ -340,7 +346,7 @@ class MainPage extends StatelessWidget {
                                   controller: controller.cityNameController,
                                   onChanged: (value) {
                                     if (value.isNotEmpty) {
-                                      controller.getCityListByKeyword();
+                                      controller.pagingController.refresh();
                                     } else {
                                       controller.setCityListStateNull();
                                     }
@@ -368,87 +374,48 @@ class MainPage extends StatelessWidget {
                                   thickness: 1,
                                   color: Colors.grey.shade700,
                                 ),
-                                controller.cityListState.value != null
-                                    ? LoaderStateContainer(
-                                        state:
-                                            controller.cityListState.value!,
-                                        success: (data) {
-                                          final cityListData =
-                                              data.value.data;
+                                Expanded(
+                                  child: PagedListView.separated(
+                                    pagingController:
+                                        controller.pagingController,
 
-                                          return Expanded(
-                                            child: ListView.separated(
-                                                itemBuilder: (context, index) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      controller
-                                                          .setIsCityInputShown(
-                                                              false);
-                                                      controller
-                                                          .cityNameController
-                                                          .clear();
-                                                      controller.setSelectedCity(
-                                                          cityListData?[index]
-                                                                  .name
-                                                                  ?.replaceAll(
-                                                                      "kabupaten",
-                                                                      "") ??
-                                                              "");
-                                                      controller
-                                                          .setLocationFromCityString(
-                                                        onSuccess: () {
-                                                          controller
-                                                              .getCurrentWeather();
-                                                          controller
-                                                              .getWeatherForecast();
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                          cityListData?[index]
-                                                                  .name ??
-                                                              ""),
-                                                    ),
-                                                  );
-                                                },
-                                                // padding: EdgeInsets.symmetric(vertical: 12),
-                                                separatorBuilder:
-                                                    (context, index) => Divider(
-                                                          height: 1,
-                                                          thickness: 1,
-                                                          color: Colors
-                                                              .grey.shade700,
-                                                        ),
-                                                itemCount:
-                                                    cityListData?.length ?? 0),
-                                          );
-                                        },
-                                        loading: () {
-                                          return const Expanded(
-                                            child: Column(
-                                              children: [
-                                                Spacer(),
-                                                SizedBox(
-                                                  height: 20,
-                                                  width: 20,
-                                                  child: CircularProgressIndicator(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                Spacer()
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        failure: (error) {
-                                          return const Text("Failed");
-                                        },
-                                      )
-                                    : const SizedBox.shrink()
+                                    // padding: EdgeInsets.symmetric(vertical: 12),
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                      height: 1,
+                                      thickness: 1,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                    builderDelegate:
+                                        PagedChildBuilderDelegate<CityData>(
+                                      itemBuilder: (context, item, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            controller
+                                                .setIsCityInputShown(false);
+                                            controller.cityNameController
+                                                .clear();
+                                            controller.setSelectedCity(item.name
+                                                    ?.replaceAll(
+                                                        "kabupaten", "") ??
+                                                "");
+                                            controller
+                                                .setLocationFromCityString(
+                                              onSuccess: () {
+                                                controller.getCurrentWeather();
+                                                controller.getWeatherForecast();
+                                              },
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(item.name ?? ""),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -500,13 +467,15 @@ class MainPage extends StatelessWidget {
                                 TableCell(
                                   verticalAlignment:
                                       TableCellVerticalAlignment.bottom,
-                                  child: ShimmerCard(height: 150,width: 150,),
+                                  child: ShimmerCard(
+                                    height: 150,
+                                    width: 150,
+                                  ),
                                 ),
                                 Column(
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
-                                  children: [
-                                  ],
+                                  children: [],
                                 ),
                               ]),
                             ],
