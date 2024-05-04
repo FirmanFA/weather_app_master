@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:weather_app_master/core/remote/api_env.dart';
 import 'package:weather_app_master/utils/typedefs.dart';
 
 // Exceptions

@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -65,7 +63,7 @@ class MainPage extends StatelessWidget {
                                     controller.setIsCityInputShown(
                                         !controller.isCityInputShown.value);
                                   },
-                                  child: Icon(
+                                  child: const Icon(
                                     Iconsax.arrow_down_1,
                                     color: Colors.white,
                                   ),
@@ -105,7 +103,7 @@ class MainPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.stretch,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 60,
                                         ),
                                         SizedBox(
@@ -120,14 +118,14 @@ class MainPage extends StatelessWidget {
                                                 weatherData
                                                         .weather?.first.main ??
                                                     "-",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   letterSpacing: 0.7,
                                                 ),
                                               ),
                                               Text(
                                                 "Feels like: ${weatherData.main?.feelsLike?.toStringAsFixed(0) ?? "-"}\u00B0",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   letterSpacing: 0.7,
                                                 ),
@@ -155,7 +153,7 @@ class MainPage extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(16.r),
                                       ),
-                                      padding: EdgeInsets.all(12),
+                                      padding: const EdgeInsets.all(12),
                                       child: Column(
                                         children: [
                                           AutoSizeText(
@@ -200,7 +198,7 @@ class MainPage extends StatelessWidget {
                                         children: [
                                           12.verticalSpace,
                                           Padding(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 12),
                                             child: AutoSizeText(
                                               "5-DAYS / 3-HOURS FORECAST",
@@ -222,7 +220,7 @@ class MainPage extends StatelessWidget {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   // shrinkWrap: true,
-                                                  padding: EdgeInsets.all(12),
+                                                  padding: const EdgeInsets.all(12),
                                                   itemBuilder:
                                                       (context, index) {
                                                     final forecastWeatherDetail =
@@ -242,7 +240,7 @@ class MainPage extends StatelessWidget {
                                                                 .circular(12.r),
                                                       ),
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                       child: Column(
                                                         children: [
                                                           LottieBuilder.asset(
@@ -280,7 +278,7 @@ class MainPage extends StatelessWidget {
                                                   scrollDirection:
                                                       Axis.horizontal,
                                                   // shrinkWrap: true,
-                                                  padding: EdgeInsets.all(12),
+                                                  padding: const EdgeInsets.all(12),
                                                   itemBuilder:
                                                       (context, index) {
                                                     return Container(
@@ -297,7 +295,7 @@ class MainPage extends StatelessWidget {
                                                                 .circular(12.r),
                                                       ),
                                                       padding:
-                                                          EdgeInsets.all(8),
+                                                          const EdgeInsets.all(8),
                                                     );
                                                   },
                                                   separatorBuilder:
@@ -318,8 +316,8 @@ class MainPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Spacer(),
-                            Text("Made with love, firman <3")
+                            const Spacer(),
+                            const Text("Made with love, firman <3")
                           ],
                         ),
                       ),
@@ -332,7 +330,7 @@ class MainPage extends StatelessWidget {
                             width: Get.width / 1.7,
                             height: Get.height / 3,
                             decoration: BoxDecoration(
-                              color: Color(0xFF4A3C7A),
+                              color: const Color(0xFF4A3C7A),
                               borderRadius: BorderRadius.circular(16.r),
                               border: Border.all(color: Colors.grey.shade700),
                             ),
@@ -354,7 +352,7 @@ class MainPage extends StatelessWidget {
                                       errorBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
                                       focusedErrorBorder: InputBorder.none,
-                                      prefixIcon: Icon(
+                                      prefixIcon: const Icon(
                                         Icons.search,
                                         size: 16,
                                         color: Colors.white,
@@ -362,7 +360,7 @@ class MainPage extends StatelessWidget {
                                       hintText: "cari nama kota",
                                       hintStyle: TextStyle(
                                           color: Colors.grey.shade600),
-                                      contentPadding: EdgeInsets.all(8)),
+                                      contentPadding: const EdgeInsets.all(8)),
                                   cursorColor: Colors.white,
                                 ),
                                 Divider(
@@ -430,7 +428,7 @@ class MainPage extends StatelessWidget {
                                           );
                                         },
                                         loading: () {
-                                          return Expanded(
+                                          return const Expanded(
                                             child: Column(
                                               children: [
                                                 Spacer(),
@@ -447,10 +445,10 @@ class MainPage extends StatelessWidget {
                                           );
                                         },
                                         failure: (error) {
-                                          return Text("Failed");
+                                          return const Text("Failed");
                                         },
                                       )
-                                    : SizedBox.shrink()
+                                    : const SizedBox.shrink()
                               ],
                             ),
                           ),
@@ -461,12 +459,12 @@ class MainPage extends StatelessWidget {
                 failure: (error) {
                   return Column(
                     children: [
-                      Text("Error Getting Weather Data, try again"),
+                      const Text("Error Getting Weather Data, try again"),
                       ElevatedButton(
                           onPressed: () {
                             controller.onInit();
                           },
-                          child: Text("Try Again"))
+                          child: const Text("Try Again"))
                     ],
                   );
                 },
@@ -484,7 +482,7 @@ class MainPage extends StatelessWidget {
                               height: 20,
                             ),
                             4.horizontalSpace,
-                            Icon(
+                            const Icon(
                               Iconsax.arrow_down_1,
                               color: Colors.white,
                             )
@@ -497,7 +495,7 @@ class MainPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Table(
-                            children: [
+                            children: const [
                               TableRow(children: [
                                 TableCell(
                                   verticalAlignment:
@@ -527,7 +525,7 @@ class MainPage extends StatelessWidget {
                                     color: Colors.grey.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(16.r),
                                   ),
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                 ),
                               ),
                               12.horizontalSpace,
@@ -544,8 +542,8 @@ class MainPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Spacer(),
-                        Text("Made with love, firman <3")
+                        const Spacer(),
+                        const Text("Made with love, firman <3")
                       ],
                     ),
                   );

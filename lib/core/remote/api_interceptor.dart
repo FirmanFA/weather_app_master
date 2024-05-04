@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 
 /// A class that holds intercepting logic for API related requests. This is
 /// the first interceptor in case of both request and response.

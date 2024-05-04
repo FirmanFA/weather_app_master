@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'dart:convert';
 
 part 'get_forecast_response.freezed.dart';
 part 'get_forecast_response.g.dart';
