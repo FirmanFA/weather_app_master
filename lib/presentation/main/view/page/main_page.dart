@@ -11,6 +11,7 @@ import 'package:weather_app_master/presentation/main/controller/main_controller.
 import 'package:weather_app_master/reusable/widget/data_loader/loader_state_container.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_card.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_container.dart';
+import 'package:weather_app_master/utils/string_utils.dart';
 
 class MainPage extends StatelessWidget {
   static const routeName = "/main-page";
@@ -52,7 +53,9 @@ class MainPage extends StatelessWidget {
                         ],
                       ),
                       LottieBuilder.asset(
-                        "assets/lottie/weather/night_bright.json",
+                        weatherData.weather?.first.icon
+                            ?.clusterWeatherIconToLocalAsset ??
+                            "",
                         width: Get.width,
                       ),
                       Padding(
@@ -133,7 +136,10 @@ class MainPage extends StatelessWidget {
                                       ),
                                     ),
                                     LottieBuilder.asset(
-                                      "assets/lottie/weather/night_bright.json",
+                                      // "assets/lottie/weather/night_bright.json",
+                                      weatherData.weather?.first.icon
+                                              ?.clusterWeatherIconToLocalAsset ??
+                                          "",
                                       width: Get.width,
                                     ),
                                     AutoSizeText(
@@ -193,7 +199,9 @@ class MainPage extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 LottieBuilder.asset(
-                                                  "assets/lottie/weather/night_bright.json",
+                                                  weatherData.weather?.first.icon
+                                                      ?.clusterWeatherIconToLocalAsset ??
+                                                      "",
                                                 ),
                                                 Text(
                                                   "50\u00B0/60\u00B0",
