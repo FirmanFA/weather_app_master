@@ -370,16 +370,16 @@ class MainPage extends StatelessWidget {
                                   thickness: 1,
                                   color: Colors.grey.shade700,
                                 ),
-                                Expanded(
-                                  child: controller.cityListState.value != null
-                                      ? LoaderStateContainer(
-                                          state:
-                                              controller.cityListState.value!,
-                                          success: (data) {
-                                            final cityListData =
-                                                data.value.data;
+                                controller.cityListState.value != null
+                                    ? LoaderStateContainer(
+                                        state:
+                                            controller.cityListState.value!,
+                                        success: (data) {
+                                          final cityListData =
+                                              data.value.data;
 
-                                            return ListView.separated(
+                                          return Expanded(
+                                            child: ListView.separated(
                                                 itemBuilder: (context, index) {
                                                   return GestureDetector(
                                                     onTap: () {
@@ -426,23 +426,31 @@ class MainPage extends StatelessWidget {
                                                               .grey.shade700,
                                                         ),
                                                 itemCount:
-                                                    cityListData?.length ?? 0);
-                                          },
-                                          loading: () {
-                                            return SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: CircularProgressIndicator(
-                                                color: Colors.white,
-                                              ),
-                                            );
-                                          },
-                                          failure: (error) {
-                                            return Text("Failed");
-                                          },
-                                        )
-                                      : SizedBox.shrink(),
-                                )
+                                                    cityListData?.length ?? 0),
+                                          );
+                                        },
+                                        loading: () {
+                                          return Expanded(
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child: CircularProgressIndicator(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                Spacer()
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        failure: (error) {
+                                          return Text("Failed");
+                                        },
+                                      )
+                                    : SizedBox.shrink()
                               ],
                             ),
                           ),
