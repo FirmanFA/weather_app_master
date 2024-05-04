@@ -37,29 +37,35 @@ class MainController extends GetxController {
 
   getCurrentWeather() {
     currentWeatherState.value = UiLoading();
+    update();
     _weatherRepository.getCurrentWeather(queryParams: {
       'units': 'metric',
       'lon': selectedLocation.value?.longitude,
       'lat': selectedLocation.value?.latitude,
     }).then((value) {
       currentWeatherState.value = UiSuccess(value);
+      update();
     }).catchError((er) {
       Get.snackbar("Gagal", er.message);
       currentWeatherState.value = UiFailure(er.message);
+      update();
     });
   }
 
   getWeatherForecast() {
     weatherForecastState.value = UiLoading();
+    update();
     _weatherRepository.get5DayForecast(queryParams: {
       'units': 'metric',
       'lon': selectedLocation.value?.longitude,
       'lat': selectedLocation.value?.latitude,
     }).then((value) {
       weatherForecastState.value = UiSuccess(value);
+      update();
     }).catchError((er) {
       Get.snackbar("Gagal", er.message);
       weatherForecastState.value = UiFailure(er.message);
+      update();
     });
   }
 
