@@ -11,7 +11,7 @@ class CityRepository {
 
   CityRepository() : _apiService = ApiService(dioService);
 
-  Future<GetCityResponse> getCurrentWeather(
+  Future<GetCityResponse> getCityList(
       {required JSON queryParams}) async {
     try {
       return _apiService.getDocumentData<GetCityResponse>(
