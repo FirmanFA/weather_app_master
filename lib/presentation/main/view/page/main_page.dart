@@ -87,14 +87,15 @@ class MainPage extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "Thunderstorm",
+                                          weatherData.weather?.first.main ??
+                                              "-",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 0.7,
                                           ),
                                         ),
                                         Text(
-                                          "Feels like: 60\u00B0",
+                                          "Feels like: ${weatherData.main?.feelsLike?.toStringAsFixed(0) ?? "-"}\u00B0",
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             letterSpacing: 0.7,
@@ -136,7 +137,8 @@ class MainPage extends StatelessWidget {
                                       width: Get.width,
                                     ),
                                     AutoSizeText(
-                                      "50\u00B0/60\u00B0",
+                                      "${weatherData.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
+                                      "${weatherData.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w700,
