@@ -13,7 +13,7 @@ class ApiEndpoint {
   /// https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&appid=073ad9e22e0b29bed8693631a41dc840
   // String weatherApiKey = "073ad9e22e0b29bed8693631a41dc840";
 
-  /// Returns the path for an weather [endpoint].
+  /// Returns the path for a weather [endpoint].
   static String weather(WeatherEndpoint endpoint) {
     const path = 'https://api.openweathermap.org/data/2.5';
     switch (endpoint) {
@@ -21,6 +21,16 @@ class ApiEndpoint {
         return '$path/forecast';
       case WeatherEndpoint.getCurrentWeather:
         return '$path/weather';
+    }
+  }
+
+  ///https://idn-area.up.railway.app/regencies?name=kota&limit=10&sortBy=code
+  /// Returns the path for city [endpoint].
+  static String city(CityEndpoint endpoint) {
+    const path = 'https://idn-area.up.railway.app';
+    switch (endpoint) {
+      case CityEndpoint.getCityList:
+        return '$path/regencies';
     }
   }
 }
