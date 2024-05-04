@@ -35,274 +35,289 @@ class MainPage extends StatelessWidget {
 
                   return Stack(
                     children: [
-                      Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          24.verticalSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  controller.setIsCityInputShown(
-                                      !controller.isCityInputShown.value);
-                                },
-                                child: Text(
-                                  controller.selectedCityString.value,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              4.horizontalSpace,
-                              GestureDetector(
-                                onTap: () {
-                                  controller.setIsCityInputShown(
-                                      !controller.isCityInputShown.value);
-                                },
-                                child: Icon(
-                                  Iconsax.arrow_down_1,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),
-                          LottieBuilder.asset(
-                            weatherData.weather?.first.icon
-                                    ?.clusterWeatherIconToLocalAsset ??
-                                "",
-                            width: Get.width,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Table(
+                      GestureDetector(
+                        onTap: () {
+                          controller.setIsCityInputShown(false);
+                        },
+                        child: Column(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            24.verticalSpace,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TableRow(children: [
-                                  TableCell(
-                                    verticalAlignment:
-                                        TableCellVerticalAlignment.bottom,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        "${weatherData.main?.temp?.toStringAsFixed(0) ?? "-"}\u00B0",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: 200.sp),
-                                      ),
-                                    ),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.setIsCityInputShown(
+                                        !controller.isCityInputShown.value);
+                                  },
+                                  child: Text(
+                                    controller.selectedCityString.value,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600),
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      SizedBox(
-                                        height: 60,
-                                      ),
-                                      SizedBox(
-                                        height: 60,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              weatherData.weather?.first.main ??
-                                                  "-",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 0.7,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Feels like: ${weatherData.main?.feelsLike?.toStringAsFixed(0) ?? "-"}\u00B0",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                letterSpacing: 0.7,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                ),
+                                4.horizontalSpace,
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.setIsCityInputShown(
+                                        !controller.isCityInputShown.value);
+                                  },
+                                  child: Icon(
+                                    Iconsax.arrow_down_1,
+                                    color: Colors.white,
                                   ),
-                                ]),
+                                )
                               ],
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 30,
-                                  child: Container(
-                                    height: 128,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(16.r),
+                            LottieBuilder.asset(
+                              weatherData.weather?.first.icon
+                                      ?.clusterWeatherIconToLocalAsset ??
+                                  "",
+                              width: Get.width,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24),
+                              child: Table(
+                                children: [
+                                  TableRow(children: [
+                                    TableCell(
+                                      verticalAlignment:
+                                          TableCellVerticalAlignment.bottom,
+                                      child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Text(
+                                          "${weatherData.main?.temp?.toStringAsFixed(0) ?? "-"}\u00B0",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 200.sp),
+                                        ),
+                                      ),
                                     ),
-                                    padding: EdgeInsets.all(12),
-                                    child: Column(
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
-                                        AutoSizeText(
-                                          "TODAY",
-                                          style: TextStyle(
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                        SizedBox(
+                                          height: 60,
                                         ),
-                                        LottieBuilder.asset(
-                                          // "assets/lottie/weather/night_bright.json",
-                                          weatherData.weather?.first.icon
-                                                  ?.clusterWeatherIconToLocalAsset ??
-                                              "",
-                                          width: Get.width,
-                                        ),
-                                        AutoSizeText(
-                                          "${weatherData.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
-                                          "${weatherData.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w700,
+                                        SizedBox(
+                                          height: 60,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                weatherData
+                                                        .weather?.first.main ??
+                                                    "-",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 0.7,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Feels like: ${weatherData.main?.feelsLike?.toStringAsFixed(0) ?? "-"}\u00B0",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 0.7,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                12.horizontalSpace,
-                                Expanded(
-                                  flex: 75,
-                                  child: Container(
-                                    height: 128,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(16.r),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        12.verticalSpace,
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12),
-                                          child: AutoSizeText(
-                                            "5-DAYS / 3-HOURS FORECAST",
+                                  ]),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 30,
+                                    child: Container(
+                                      height: 128,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius:
+                                            BorderRadius.circular(16.r),
+                                      ),
+                                      padding: EdgeInsets.all(12),
+                                      child: Column(
+                                        children: [
+                                          AutoSizeText(
+                                            "TODAY",
                                             style: TextStyle(
                                               fontSize: 10.sp,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: LoaderStateContainer(
-                                            state: controller
-                                                .weatherForecastState.value,
-                                            success: (data) {
-                                              final forecastData =
-                                                  data.value.list;
-
-                                              return ListView.separated(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                // shrinkWrap: true,
-                                                padding: EdgeInsets.all(12),
-                                                itemBuilder: (context, index) {
-                                                  final forecastWeatherDetail =
-                                                      forecastData?[index];
-
-                                                  return Container(
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.grey
-                                                              .withOpacity(
-                                                                  0.3)),
-                                                      color: Colors.grey
-                                                          .withOpacity(0.1),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.r),
-                                                    ),
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Column(
-                                                      children: [
-                                                        LottieBuilder.asset(
-                                                          forecastWeatherDetail
-                                                                  ?.weather
-                                                                  ?.first
-                                                                  .icon
-                                                                  ?.clusterWeatherIconToLocalAsset ??
-                                                              "",
-                                                        ),
-                                                        Text(
-                                                          "${forecastWeatherDetail?.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
-                                                          "${forecastWeatherDetail?.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
-                                                          style: TextStyle(
-                                                            fontSize: 9.sp,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                                separatorBuilder:
-                                                    (context, index) =>
-                                                        10.horizontalSpace,
-                                                itemCount:
-                                                    forecastData?.length ?? 0,
-                                              );
-                                            },
-                                            loading: () {
-                                              return BasicShimmerContainer(
-                                                  child: ListView.separated(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                // shrinkWrap: true,
-                                                padding: EdgeInsets.all(12),
-                                                itemBuilder: (context, index) {
-                                                  return Container(
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.grey
-                                                              .withOpacity(
-                                                                  0.3)),
-                                                      color: Colors.grey
-                                                          .withOpacity(0.1),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.r),
-                                                    ),
-                                                    padding: EdgeInsets.all(8),
-                                                  );
-                                                },
-                                                separatorBuilder:
-                                                    (context, index) =>
-                                                        10.horizontalSpace,
-                                                itemCount: 5,
-                                              ));
-                                            },
-                                            failure: (error) {
-                                              return Container();
-                                            },
+                                          LottieBuilder.asset(
+                                            // "assets/lottie/weather/night_bright.json",
+                                            weatherData.weather?.first.icon
+                                                    ?.clusterWeatherIconToLocalAsset ??
+                                                "",
+                                            width: Get.width,
                                           ),
-                                        )
-                                      ],
+                                          AutoSizeText(
+                                            "${weatherData.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
+                                            "${weatherData.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  12.horizontalSpace,
+                                  Expanded(
+                                    flex: 75,
+                                    child: Container(
+                                      height: 128,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius:
+                                            BorderRadius.circular(16.r),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          12.verticalSpace,
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 12),
+                                            child: AutoSizeText(
+                                              "5-DAYS / 3-HOURS FORECAST",
+                                              style: TextStyle(
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: LoaderStateContainer(
+                                              state: controller
+                                                  .weatherForecastState.value,
+                                              success: (data) {
+                                                final forecastData =
+                                                    data.value.list;
+
+                                                return ListView.separated(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  // shrinkWrap: true,
+                                                  padding: EdgeInsets.all(12),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    final forecastWeatherDetail =
+                                                        forecastData?[index];
+
+                                                    return Container(
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.3)),
+                                                        color: Colors.grey
+                                                            .withOpacity(0.1),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.r),
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      child: Column(
+                                                        children: [
+                                                          LottieBuilder.asset(
+                                                            forecastWeatherDetail
+                                                                    ?.weather
+                                                                    ?.first
+                                                                    .icon
+                                                                    ?.clusterWeatherIconToLocalAsset ??
+                                                                "",
+                                                          ),
+                                                          Text(
+                                                            "${forecastWeatherDetail?.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
+                                                            "${forecastWeatherDetail?.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
+                                                            style: TextStyle(
+                                                              fontSize: 9.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          10.horizontalSpace,
+                                                  itemCount:
+                                                      forecastData?.length ?? 0,
+                                                );
+                                              },
+                                              loading: () {
+                                                return BasicShimmerContainer(
+                                                    child: ListView.separated(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  // shrinkWrap: true,
+                                                  padding: EdgeInsets.all(12),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Container(
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.3)),
+                                                        color: Colors.grey
+                                                            .withOpacity(0.1),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.r),
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                    );
+                                                  },
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          10.horizontalSpace,
+                                                  itemCount: 5,
+                                                ));
+                                              },
+                                              failure: (error) {
+                                                return Container();
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Spacer(),
-                          Text("Made with love, firman <3")
-                        ],
+                            Spacer(),
+                            Text("Made with love, firman <3")
+                          ],
+                        ),
                       ),
                       if (controller.isCityInputShown.value)
                         Positioned(
@@ -320,6 +335,14 @@ class MainPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 TextField(
+                                  controller: controller.cityNameController,
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty) {
+                                      controller.getCityListByKeyword();
+                                    } else {
+                                      controller.setCityListStateNull();
+                                    }
+                                  },
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       disabledBorder: InputBorder.none,
@@ -343,6 +366,79 @@ class MainPage extends StatelessWidget {
                                   thickness: 1,
                                   color: Colors.grey.shade700,
                                 ),
+                                Expanded(
+                                  child: controller.cityListState.value != null
+                                      ? LoaderStateContainer(
+                                          state:
+                                              controller.cityListState.value!,
+                                          success: (data) {
+                                            final cityListData =
+                                                data.value.data;
+
+                                            return ListView.separated(
+                                                itemBuilder: (context, index) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      controller
+                                                          .setIsCityInputShown(
+                                                              false);
+                                                      controller
+                                                          .cityNameController
+                                                          .clear();
+                                                      controller.setSelectedCity(
+                                                          cityListData?[index]
+                                                                  .name
+                                                                  ?.replaceAll(
+                                                                      "kabupaten",
+                                                                      "") ??
+                                                              "");
+                                                      controller
+                                                          .setLocationFromCityString(
+                                                        onSuccess: () {
+                                                          controller
+                                                              .getCurrentWeather();
+                                                          controller
+                                                              .getWeatherForecast();
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                          cityListData?[index]
+                                                                  .name ??
+                                                              ""),
+                                                    ),
+                                                  );
+                                                },
+                                                // padding: EdgeInsets.symmetric(vertical: 12),
+                                                separatorBuilder:
+                                                    (context, index) => Divider(
+                                                          height: 1,
+                                                          thickness: 1,
+                                                          color: Colors
+                                                              .grey.shade700,
+                                                        ),
+                                                itemCount:
+                                                    cityListData?.length ?? 0);
+                                          },
+                                          loading: () {
+                                            return SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            );
+                                          },
+                                          failure: (error) {
+                                            return Text("Failed");
+                                          },
+                                        )
+                                      : SizedBox.shrink(),
+                                )
                               ],
                             ),
                           ),
@@ -352,384 +448,94 @@ class MainPage extends StatelessWidget {
                 },
                 failure: (error) {
                   return Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      24.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            controller.selectedCityString.value,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.w600),
-                          ),
-                          4.horizontalSpace,
-                          Icon(
-                            Iconsax.arrow_down_1,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                      LottieBuilder.asset(
-                        "assets/lottie/weather/night_bright.json",
-                        width: Get.width,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Table(
-                          children: [
-                            TableRow(children: [
-                              TableCell(
-                                verticalAlignment:
-                                    TableCellVerticalAlignment.bottom,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    "54\u00B0",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 200.sp),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  SizedBox(
-                                    height: 60,
-                                  ),
-                                  SizedBox(
-                                    height: 60,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "Thunderstorm",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 0.7,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Feels like: 60\u00B0",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 0.7,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 30,
-                              child: Container(
-                                height: 128,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(16.r),
-                                ),
-                                padding: EdgeInsets.all(12),
-                                child: Column(
-                                  children: [
-                                    AutoSizeText(
-                                      "TODAY",
-                                      style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    LottieBuilder.asset(
-                                      "assets/lottie/weather/night_bright.json",
-                                      width: Get.width,
-                                    ),
-                                    AutoSizeText(
-                                      "50\u00B0/60\u00B0",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            12.horizontalSpace,
-                            Expanded(
-                              flex: 75,
-                              child: Container(
-                                height: 128,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(16.r),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    12.verticalSpace,
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 12),
-                                      child: AutoSizeText(
-                                        "5-DAY FORECAST",
-                                        style: TextStyle(
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: ListView.separated(
-                                        scrollDirection: Axis.horizontal,
-                                        // shrinkWrap: true,
-                                        padding: EdgeInsets.all(12),
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.3)),
-                                              color:
-                                                  Colors.grey.withOpacity(0.1),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.r),
-                                            ),
-                                            padding: EdgeInsets.all(8),
-                                            child: Column(
-                                              children: [
-                                                LottieBuilder.asset(
-                                                  "assets/lottie/weather/night_bright.json",
-                                                ),
-                                                Text(
-                                                  "50\u00B0/60\u00B0",
-                                                  style: TextStyle(
-                                                    fontSize: 9.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        separatorBuilder: (context, index) =>
-                                            10.horizontalSpace,
-                                        itemCount: 5,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      Text("Made with love, firman <3")
+                      Text("Error Getting Weather Data, try again"),
+                      ElevatedButton(
+                          onPressed: () {
+                            controller.onInit();
+                          },
+                          child: Text("Try Again"))
                     ],
                   );
                 },
                 loading: () {
-                  return Column(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      24.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            controller.selectedCityString.value,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20.sp, fontWeight: FontWeight.w600),
+                  return BasicShimmerContainer(
+                    child: Column(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        24.verticalSpace,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ShimmerCard(
+                              width: Get.width / 2,
+                              height: 20,
+                            ),
+                            4.horizontalSpace,
+                            Icon(
+                              Iconsax.arrow_down_1,
+                              color: Colors.white,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: Get.width,
+                          height: Get.width,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Table(
+                            children: [
+                              TableRow(children: [
+                                TableCell(
+                                  verticalAlignment:
+                                      TableCellVerticalAlignment.bottom,
+                                  child: ShimmerCard(height: 150,width: 150,),
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                  ],
+                                ),
+                              ]),
+                            ],
                           ),
-                          4.horizontalSpace,
-                          Icon(
-                            Iconsax.arrow_down_1,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                      LottieBuilder.asset(
-                        "assets/lottie/weather/night_bright.json",
-                        width: Get.width,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Table(
-                          children: [
-                            TableRow(children: [
-                              TableCell(
-                                verticalAlignment:
-                                    TableCellVerticalAlignment.bottom,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    "54\u00B0",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 200.sp),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  SizedBox(
-                                    height: 60,
-                                  ),
-                                  SizedBox(
-                                    height: 60,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "Thunderstorm",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 0.7,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Feels like: 60\u00B0",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: 0.7,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 30,
-                              child: Container(
-                                height: 128,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(16.r),
-                                ),
-                                padding: EdgeInsets.all(12),
-                                child: Column(
-                                  children: [
-                                    AutoSizeText(
-                                      "TODAY",
-                                      style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    LottieBuilder.asset(
-                                      "assets/lottie/weather/night_bright.json",
-                                      width: Get.width,
-                                    ),
-                                    AutoSizeText(
-                                      "50\u00B0/60\u00B0",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
+                        12.verticalSpace,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 30,
+                                child: Container(
+                                  height: 128,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(16.r),
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
                               ),
-                            ),
-                            12.horizontalSpace,
-                            Expanded(
-                              flex: 75,
-                              child: Container(
-                                height: 128,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(16.r),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    12.verticalSpace,
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 12),
-                                      child: AutoSizeText(
-                                        "5-DAY FORECAST",
-                                        style: TextStyle(
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: ListView.separated(
-                                        scrollDirection: Axis.horizontal,
-                                        // shrinkWrap: true,
-                                        padding: EdgeInsets.all(12),
-                                        itemBuilder: (context, index) {
-                                          return Container(
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.3)),
-                                              color:
-                                                  Colors.grey.withOpacity(0.1),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.r),
-                                            ),
-                                            padding: EdgeInsets.all(8),
-                                            child: Column(
-                                              children: [
-                                                LottieBuilder.asset(
-                                                  "assets/lottie/weather/night_bright.json",
-                                                ),
-                                                Text(
-                                                  "50\u00B0/60\u00B0",
-                                                  style: TextStyle(
-                                                    fontSize: 9.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        separatorBuilder: (context, index) =>
-                                            10.horizontalSpace,
-                                        itemCount: 5,
-                                      ),
-                                    )
-                                  ],
+                              12.horizontalSpace,
+                              Expanded(
+                                flex: 75,
+                                child: Container(
+                                  height: 128,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(16.r),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      Text("Made with love, firman <3")
-                    ],
+                        Spacer(),
+                        Text("Made with love, firman <3")
+                      ],
+                    ),
                   );
                 },
               )),

@@ -22,7 +22,7 @@ class MainController extends GetxController {
 
   Rx<UIState<GetForecastResponse>> weatherForecastState = Rx(UiLoading());
 
-  Rx<UIState<GetCityResponse>> cityListState = Rx(UiLoading());
+  Rxn<UIState<GetCityResponse>> cityListState = Rxn();
 
   var isCityInputShown = false.obs;
 
@@ -92,6 +92,22 @@ class MainController extends GetxController {
       cityListState.value = UiFailure(er.message);
       update();
     });
+  }
+
+  setLocationFromCityString({required Function() onSuccess}) {
+    LocationUtil.getLocationFromCityName(cityName: selectedCityString.value)
+        .then((value) {
+          if (value != null){
+            setSelectedLocation(value);
+            onSuccess.call();
+            update();
+          }
+    });
+  }
+
+  setCityListStateNull() {
+    cityListState.value = null;
+    update();
   }
 
   setSelectedCity(String value) {
