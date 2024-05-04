@@ -34,6 +34,7 @@ class MainController extends GetxController {
   getCurrentWeather() {
     currentWeatherState.value = UiLoading();
     _weatherRepository.getCurrentWeather(queryParams: {
+      'units': 'metric',
       'lon': selectedLocation.value?.longitude,
       'lat': selectedLocation.value?.latitude,
     }).then((value) {
