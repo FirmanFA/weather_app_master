@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:weather_app_master/core/remote/api_result.dart';
 import 'package:weather_app_master/core/repository/weather_repository.dart';
+import 'package:weather_app_master/presentation/main/model/forecast/get_forecast_response.dart';
 import 'package:weather_app_master/presentation/main/model/weather/get_weather_response.dart';
 import 'package:weather_app_master/utils/location_util.dart';
 
@@ -13,6 +14,8 @@ class MainController extends GetxController {
   final _weatherRepository = WeatherRepository();
 
   Rx<UIState<GetWeatherResponse>> currentWeatherState = Rx(UiLoading());
+
+  Rx<UIState<GetForecastResponse>> weatherForecastState = Rx(UiLoading());
 
   @override
   void onInit() {
@@ -27,6 +30,7 @@ class MainController extends GetxController {
         setSelectedCity(await value.getCityName);
         setSelectedLocation(value.toLocation);
         getCurrentWeather();
+        getWeatherForecast();
       } else {}
     });
   }
@@ -42,6 +46,20 @@ class MainController extends GetxController {
     }).catchError((er) {
       Get.snackbar("Gagal", er.message);
       currentWeatherState.value = UiFailure(er.message);
+    });
+  }
+
+  getWeatherForecast() {
+    weatherForecastState.value = UiLoading();
+    _weatherRepository.get5DayForecast(queryParams: {
+      'units': 'metric',
+      'lon': selectedLocation.value?.longitude,
+      'lat': selectedLocation.value?.latitude,
+    }).then((value) {
+      weatherForecastState.value = UiSuccess(value);
+    }).catchError((er) {
+      Get.snackbar("Gagal", er.message);
+      weatherForecastState.value = UiFailure(er.message);
     });
   }
 
