@@ -86,8 +86,8 @@ class WeatherForecastHorizontalList extends StatelessWidget {
                                   "",
                             ),
                             Text(
-                              "${forecastWeatherDetail?.main?.tempMin?.toStringAsFixed(0) ?? "-"}\u00B0/"
-                                  "${forecastWeatherDetail?.main?.tempMax?.toStringAsFixed(0) ?? "-"}\u00B0",
+                              "${forecastWeatherDetail?.main?.temp?.toStringAsFixed(0) ?? "-"}\u00B0/"
+                                  "${forecastWeatherDetail?.main?.feelsLike?.toStringAsFixed(0) ?? "-"}\u00B0",
                               style: TextStyle(
                                 fontSize: 9.sp,
                                 fontWeight:
