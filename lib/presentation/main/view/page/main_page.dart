@@ -1,10 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:lottie/lottie.dart';
 import 'package:weather_app_master/constant/constant.dart';
 import 'package:weather_app_master/presentation/main/controller/main_controller.dart';
 import 'package:weather_app_master/presentation/main/model/city/get_city_response.dart';
@@ -14,7 +12,6 @@ import 'package:weather_app_master/presentation/main/view/widget/weather_additio
 import 'package:weather_app_master/reusable/widget/data_loader/loader_state_container.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_card.dart';
 import 'package:weather_app_master/reusable/widget/shimmer/shimmer_container.dart';
-import 'package:weather_app_master/utils/string_utils.dart';
 
 class MainPage extends StatelessWidget {
   static const routeName = "/main-page";
