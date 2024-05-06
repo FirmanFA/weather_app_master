@@ -16,6 +16,8 @@ class MainController extends GetxController {
 
   final cityNameController = TextEditingController();
 
+  final cityOverlayPortalController = OverlayPortalController();
+
   final PagingController<int, CityData> pagingController =
       PagingController(firstPageKey: 1);
 
@@ -27,8 +29,6 @@ class MainController extends GetxController {
   Rx<UIState<GetForecastResponse>> weatherForecastState = Rx(UiLoading());
 
   Rxn<UIState<GetCityResponse>> cityListState = Rxn();
-
-  var isCityInputShown = false.obs;
 
   @override
   void onInit() {
@@ -130,11 +130,6 @@ class MainController extends GetxController {
   setSelectedLocation(Location value) {
     selectedLocation.value = value;
     debugPrint("selected location: ${selectedLocation.value?.toString()}");
-    update();
-  }
-
-  setIsCityInputShown(bool value) {
-    isCityInputShown.value = value;
     update();
   }
 }
